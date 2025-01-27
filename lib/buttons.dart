@@ -28,8 +28,6 @@ class CustomGestureButton extends StatefulWidget {
 }
 
 class _CustomGestureButtonState extends State<CustomGestureButton> {
-  Timer? _timer;
-
   @override
   void initState() {
     super.initState();
@@ -69,16 +67,15 @@ class _CustomGestureButtonState extends State<CustomGestureButton> {
 
   Future<void> _tapDown(String cmd) async {
     _setPressedState(cmd, true);
-    if (cmd == "V") {
+    /*if (cmd == "V") {
       sendCmdToServer(context: context, cmd: currCmd);
       _setPressedState(cmd, false);
       return;
     }
-    _timer = Timer.periodic(Duration(milliseconds: 100), (timer) {
-      currCmd = getCurrCmd(cmd);
-
-      sendCmdToServer(context: context, cmd: currCmd);
-    });
+    _timer = Timer.periodic(Duration(milliseconds: 100), (timer) {*/
+    currCmd = getCurrCmd(cmd);
+    sendCmdToServer(context: context, cmd: currCmd);
+    //});
   }
 
   Future<void> _tapUp(String cmd) async {
@@ -86,11 +83,11 @@ class _CustomGestureButtonState extends State<CustomGestureButton> {
       sendCmdToServer(context: context, cmd: "v");
       _setPressedState(cmd, false);
       return;
-    }
+    }/*
     if (_timer != null) {
       _timer!.cancel();
       _timer = null;
-    }
+    }*/
     setPressedState(cmd, false);
     if (widget.sendStop) {
       sendCmdToServer(context: context, cmd: 'S');
