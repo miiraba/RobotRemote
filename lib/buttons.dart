@@ -89,8 +89,26 @@ class _CustomGestureButtonState extends State<CustomGestureButton> {
       _timer = null;
     }*/
     setPressedState(cmd, false);
-    if (widget.sendStop) {
+    switch (currCmd) {
+      case 'G':
+        currCmd = (cmd == 'F') ? 'L' : 'F';
+        break;
+      case 'I':
+        currCmd = (cmd == 'F') ? 'R' : 'F';
+        break;
+      case 'H':
+        currCmd = (cmd == 'B') ? 'L' : 'B';
+        break;
+      case 'J':
+        currCmd = (cmd == 'B') ? 'R' : 'B';
+        break;
+      default:
+        break;
+    }    
+  if (widget.sendStop && !isUpPressed.value && !isDownPressed.value && !isLeftPressed.value && !isRightPressed.value) {
       sendCmdToServer(context: context, cmd: 'S');
+    } else {
+      sendCmdToServer(context: context, cmd: currCmd);
     }
   }
 
